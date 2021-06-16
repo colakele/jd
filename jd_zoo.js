@@ -767,7 +767,7 @@ function zoo_pk_getHomeData(inviteId = "",timeout = 0) {
       $.post(url, async (err, resp, data) => {
         try {
           if (inviteId !== "") {
-            await $.getScript("https://raw.githubusercontent.com/colakele/jd/main/code/zoo.txt").then((text) => (shareCodeList = text ? text.split('\n') : []))
+            await $.getScript("https://mirror.ghproxy.com/https://raw.githubusercontent.com/colakele/jd/main/code/zoo.txt").then((text) => (shareCodeList = text ? text.split('\n') : []))
             for (let i in shareCodeList) {
               if (shareCodeList[i]) await zoo_pk_assistGroup(shareCodeList[i]);
             }
