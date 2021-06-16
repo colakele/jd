@@ -98,3 +98,4 @@
  jdPlantBeanShareCodes.js  京东种豆得豆互助码
  JS_USER_AGENTS.js
  USER_AGENTS.js
+ jd_try.js 京东试用
