@@ -1,17 +1,13 @@
 /*
-半点京豆雨
-
-boxjs订阅地址: https://raw.githubusercontent.com/nianyuguai/longzhuzhu/main/qx/longzhuzhu.boxjs.json
-
-环境变量:
-#关闭京豆雨通知
-export RAIN_NOTIFY_CONTROL="false"
-
-已支持IOS双京东账号,Node.js支持N个京东账号
-脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
+*半点京豆雨
+*环境变量:
+*关闭京豆雨通知
+*export RAIN_NOTIFY_CONTROL="false"
+*
+*已支持IOS双京东账号,Node.js支持N个京东账号
+*脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
 
 [task_local]
-#半点京豆雨
 30 16-23/1 * * * https://raw.githubusercontent.com/longzhuzhu/nianyu/main/qx/long_half_redrain.js, tag=半点京豆雨, enabled=true
 
 ================Loon==============
