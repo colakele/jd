@@ -3,19 +3,18 @@
 *环境变量:
 *关闭京豆雨通知
 *export RAIN_NOTIFY_CONTROL="false"
-*
 *已支持IOS双京东账号,Node.js支持N个京东账号
 *脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
 
 [task_local]
-30 16-23/1 * * * https://raw.githubusercontent.com/longzhuzhu/nianyu/main/qx/long_half_redrain.js, tag=半点京豆雨, enabled=true
+30 16-23/1 * * * https://raw.githubusercontent.com/colakele/jd/main/jd_jong_half_redrain.js, tag=半点京豆雨, enabled=true
 
 ================Loon==============
 [Script]
-cron "30 16-23/1 * * *" script-path=https://raw.githubusercontent.com/longzhuzhu/nianyu/main/qx/long_half_redrain.js,tag=半点京豆雨
+cron "30 16-23/1 * * *" script-path=https://raw.githubusercontent.com/colakele/jd/main/jlong_half_redrain.js,tag=半点京豆雨
 
 ===============Surge=================
- 半点京豆雨 = type=cron,cronexp="30 16-23/1 * * *",wake-system=1,timeout=20,script-path=https://raw.githubusercontent.com/longzhuzhu/nianyu/main/qx/long_half_redrain.js
+ 半点京豆雨 = type=cron,cronexp="30 16-23/1 * * *",wake-system=1,timeout=20,script-path=hhttps://raw.githubusercontent.com/colakele/jd/main/jd_long_half_redrain.js
 
 ============小火箭=========
  半点京豆雨= type=cron,script-path=https://raw.githubusercontent.com/longzhuzhu/nianyu/main/qx/long_half_redrain.js, cronexpr="30 16-23/1 * * *",timeout=200, enable=true
