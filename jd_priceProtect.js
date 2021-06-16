@@ -1,12 +1,13 @@
 /*
-update 2021/6/14
+更新时间 2021/6/15
 京东价格保护：脚本更新地址 https://raw.githubusercontent.com/ZCY01/daily_scripts/main/jd/jd_priceProtect.js
 脚本兼容: QuantumultX, Node.js
 ==========================Quantumultx=========================
 [task_local]
-# 京东价格保护
+# 京东价格保护 
 5 0 * * * https://raw.githubusercontent.com/ZCY01/daily_scripts/main/jd/jd_priceProtect.js, tag=京东价格保护, img-url=https://raw.githubusercontent.com/ZCY01/img/master/pricev1.png, enabled=true
 */
+
 
 const $ = new Env('X东价格保护');
 
