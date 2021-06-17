@@ -23,22 +23,22 @@
  jd_zoo.js 动物联萌 618活动
  jd_zxjoy.js 柠檬特物ZX JOY&DOGA
  jdCookies.js —
- long_half_redrain.js 半点红包雨
- long_hby_lottery.js 主会场红包雨
- long_super_redrain.js 整点红包雨
+ jd_half_redrain.js 半点红包雨
+ jd_hby_lottery.js 主会场红包雨
+ jd_super_redrain.js 整点红包雨
  sendNotify.js
- zooBaojiexiaoxiaole.js 保洁消消乐
- zooLongzhou.js 龙舟
- zooJointeam01.js 纯开卡 GNC组队瓜分京豆
- zooJx88hongbao.js 京喜 领88元红包
- zooSupershophf.js 合肥旗舰店开业
+ jd_Baojiexiaoxiaole.js 保洁消消乐
+ jd_Longzhou.js 龙舟
+ jd_Jointeam01.js 纯开卡 GNC组队瓜分京豆
+ jd_Jx88hongbao.js 京喜 领88元红包
+ jd_Supershophf.js 合肥旗舰店开业
  jd_yqyl.js 邀请有礼
  jd_bean_change.js 京东资产变动通知
  jd_bean_home.js领京豆额外奖励
  jd_bean_sign.js 京东多合一签到
  jd_beauty.js 美丽研究院
  jd_blueCoin.js 东东超市兑换奖品
-  jd_bookshop.js 口袋书店  invite
+ jd_bookshop.js 口袋书店  invite
  jd_car.js 京东汽车
  jd_car_exchange.js  京东汽车兑换
  jd_carnivalcity.js 京东手机狂欢城活动
