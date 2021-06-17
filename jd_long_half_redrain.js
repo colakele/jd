@@ -6,12 +6,12 @@
 *已支持IOS双京东账号,Node.js支持N个京东账号
 *脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
 
-[task_local]
-30 16-23/1 * * * https://raw.githubusercontent.com/colakele/jd/main/jd_long_half_redrain.js, tag=半点京豆雨, enabled=true
+ [task_local]
+ 30 16-23/1 * * * https://raw.githubusercontent.com/colakele/jd/main/jd_long_half_redrain.js, tag=半点京豆雨, enabled=true
 
 ================Loon==============
-[Script]
-cron "30 16-23/1 * * *" script-path=https://raw.githubusercontent.com/colakele/jd/main/jd_long_half_redrain.js,tag=半点京豆雨
+ [Script]
+ cron "30 16-23/1 * * *" script-path=https://raw.githubusercontent.com/colakele/jd/main/jd_long_half_redrain.js,tag=半点京豆雨
 
 ===============Surge=================
  半点京豆雨 = type=cron,cronexp="30 16-23/1 * * *",wake-system=1,timeout=20,script-path=https://raw.githubusercontent.com/colakele/jd/main/jd_long_half_redrain.js
