@@ -17,7 +17,7 @@
 
 
 <details>
-<summary>## 来源清单</summary>
+<summary>来源清单</summary>
  
 > 来源清单，同步更新，特别感谢这些大佬的付出
   
