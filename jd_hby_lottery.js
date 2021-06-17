@@ -4,11 +4,11 @@
 * 已支持IOS双京东账号,Node.js支持N个京东账号
 * 脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
  [task_local]
- 1 20 1-18 6 * https://raw.githubusercontent.com/longzhuzhu/nianyu/main/qx/long_hby_lottery.js, tag=主会场红包雨, enabled=true
+ 1 20 1-18 6 * https://raw.githubusercontent.com/colakele/jd/main/jd_hby_lottery.js, tag=主会场红包雨, enabled=true
  [Script]
- cron "1 20 1-18 6 *" script-path=https://raw.githubusercontent.com/longzhuzhu/nianyu/main/qx/long_hby_lottery.js,tag=主会场红包雨
- 主会场红包雨 = type=cron,cronexp="1 20 1-18 6 *",wake-system=1,timeout=20,script-path=https://raw.githubusercontent.com/longzhuzhu/nianyu/main/qx/long_hby_lottery.js
- 主会场红包雨= type=cron,script-path=https://raw.githubusercontent.com/longzhuzhu/nianyu/main/qx/long_hby_lottery.js, cronexpr="1 20 1-18 6 *",timeout=200, enable=true
+ cron "1 20 1-18 6 *" script-path=https://raw.githubusercontent.com/colakele/jd/main/jd_hby_lottery.js,tag=主会场红包雨
+ 主会场红包雨 = type=cron,cronexp="1 20 1-18 6 *",wake-system=1,timeout=20,script-path=https://raw.githubusercontent.com/colakele/jd/main/jd_hby_lottery.js
+ 主会场红包雨= type=cron,script-path=https://raw.githubusercontent.com/colakele/jd/main/jd_hby_lottery.js, cronexpr="1 20 1-18 6 *",timeout=200, enable=true
  */
 const $ = new Env('618主会场红包雨');
 //Node.js用户请在jdCookie.js处填写京东ck;
