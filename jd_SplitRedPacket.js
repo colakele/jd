@@ -4,23 +4,23 @@
 入口 我的-赚30
 更新: 2021-06-09 16:27
 抄自 @yangtingxiao 抽奖机脚本
-https://raw.githubusercontent.com/Wenmoux/scripts/master/jd/jd_SplitRedPacket.js
+https://raw.githubusercontent.com/Wenmoux/scripts/wen/jd/jd_SplitRedPacket.js
 已支持IOS双京东账号, Node.js支持N个京东账号
 脚本兼容: QuantumultX, Surge, Loon, 小火箭，JSBox, Node.js
 ============Quantumultx===============
 [task_local]
 #天降红包
-1 0-23/1 * 6 * https://raw.githubusercontent.com/Wenmoux/scripts/master/jd/jd_SplitRedPacket.js, tag=天降红包, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
+30 7 * * * https://raw.githubusercontent.com/Wenmoux/scripts/wen/jd/jd_SplitRedPacket.js, tag=天降红包, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
 
 ================Loon==============
 [Script]
-cron "1 0-23/1 * 6 *" script-path=https://raw.githubusercontent.com/Wenmoux/scripts/master/jd/jd_SplitRedPacket.js tag=天降红包
+cron "30 7 * * *" script-path=https://raw.githubusercontent.com/Wenmoux/scripts/wen/jd/jd_SplitRedPacket.js tag=天降红包
 
 ===============Surge=================
-天降红包 = type=cron,cronexp="1 0-23/1 * 6 *",wake-system=1,timeout=3600,script-path=https://raw.githubusercontent.com/Wenmoux/scripts/master/jd/jd_SplitRedPacket.js
+天降红包 = type=cron,cronexp="30 7 * * *",wake-system=1,timeout=3600,script-path=https://raw.githubusercontent.com/Wenmoux/scripts/wen/jd/jd_SplitRedPacket.js
 
 ============小火箭=========
-天降红包 = type=cron,script-path=https://raw.githubusercontent.com/Wenmoux/scripts/master/jd/jd_SplitRedPacket.js, cronexpr="1 0-23/1 * 6 *", timeout=3600, enable=true
+天降红包 = type=cron,script-path=https://raw.githubusercontent.com/Wenmoux/scripts/wen/jd/jd_SplitRedPacket.js, cronexpr="30 7 * * *", timeout=3600, enable=true
 
  */
 const $ = new Env('天降红包🧧');
