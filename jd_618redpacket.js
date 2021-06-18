@@ -1,26 +1,26 @@
 /*
-翻翻乐@wenmoux
+翻翻乐
 更新: 2021-06-05 09:15
 抄自 @yangtingxiao 抽奖机脚本
 活动入口： 京东极速版-我的-省钱大赢家-翻翻乐
 极速版大赢家翻翻乐活动
-https://raw.githubusercontent.com/Wenmoux/scripts/master/jd/jd_618redpacket.js
+https://raw.githubusercontent.com/Wenmoux/scripts/wen/jd/jd_618redpacket.js
 已支持IOS双京东账号, Node.js支持N个京东账号
 脚本兼容: QuantumultX, Surge, Loon, 小火箭，JSBox, Node.js
 ============Quantumultx===============
 [task_local]
 #翻翻乐
-1 0-23/1 * 6 * https://raw.githubusercontent.com/Wenmoux/scripts/master/jd/jd_618redpacket.js, tag=新潮品牌狂欢, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
+1 6-21/1 * 6 * https://raw.githubusercontent.com/Wenmoux/scripts/wen/jd/jd_618redpacket.js, tag=新潮品牌狂欢, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
 
 ================Loon==============
 [Script]
-cron "1 0-23/1 * 6 *" script-path=https://raw.githubusercontent.com/Wenmoux/scripts/master/jd/jd_618redpacket.js tag=翻翻乐
+cron "1 6-21/1 * 6 *" script-path=https://raw.githubusercontent.com/Wenmoux/scripts/wen/jd/jd_618redpacket.js tag=翻翻乐
 
 ===============Surge=================
-翻翻乐 = type=cron,cronexp="1 0-23/1 * 6 *",wake-system=1,timeout=3600,script-path=https://raw.githubusercontent.com/Wenmoux/scripts/master/jd/jd_618redpacket.js
+翻翻乐 = type=cron,cronexp="1 6-21/1 * 6 *",wake-system=1,timeout=3600,script-path=https://raw.githubusercontent.com/Wenmoux/scripts/wen/jd/jd_618redpacket.js
 
 ============小火箭=========
-翻翻乐 = type=cron,script-path=https://raw.githubusercontent.com/Wenmoux/scripts/master/jd/jd_618redpacket.js, cronexpr="1 0-23/1 * 6 *", timeout=3600, enable=true
+翻翻乐 = type=cron,script-path=https://raw.githubusercontent.com/Wenmoux/scripts/wen/jd/jd_618redpacket.js, cronexpr="1 6-21/1 * 6 *", timeout=3600, enable=true
 
  */
 const $ = new Env('翻翻乐');
@@ -92,6 +92,7 @@ message = ""
                         $.message += `当前金额 ${$.reward.rewardValue}\n`
                         await open("gambleObtainReward", $.reward.rewardType)
                         await Draw($.reward.id, $.reward.poolBaseId, $.reward.prizeGroupId, $.reward.prizeBaseId, $.reward.prizeType)
+                        await $.wait(500);
                         await totalPrize()
                         message += $.message + `${$.drawresult}累计获得：￥${$.prize} 🧧${$.Hb} \n\n`
                         //    await notify.sendNotify(`京东极速版大赢家翻倍红包提现`, `${$.message}`); 
@@ -101,7 +102,7 @@ message = ""
         }
         if ($.isNode()) {
             if (message.length!=0) {
-                await notify.sendNotify("翻翻乐提现", `${message}`);
+                await notify.sendNotify("翻翻乐提现", `${message}\n\n吹水群：https://t.me/wenmou_car`);
             }
         }
 
