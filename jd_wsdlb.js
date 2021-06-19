@@ -1,6 +1,7 @@
 /*
 
 [task_local]
+入口 极速版 赚金币 种水果
 #柠檬我是大老板农场
 5 0-23/6 * * * http://nm66.top/jd_wsdlb.js, tag=柠檬我是大老板农场, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
 */
@@ -77,7 +78,7 @@ async function jdFruit() {
 if ($.info.data.firstJoinFlag === true) {
  $.log("您忘了种植新的水果，快打开极速版种植吧")
 
- allMessage += `京东账号${$.index}-${$.nickName || $.UserName}\n您忘了种植新的水果,内侧入口为：\nhttp://a8pck.cn/VbjDm${$.index !== cookiesArr.length ? '\n\n' : '\n\n'}`;
+ allMessage += `京东账号${$.index}-${$.nickName || $.UserName}\n您忘了种植新的水果,内侧入口为：\nhttp://4nqiq.cn/uMXhK${$.index !== cookiesArr.length ? '\n\n' : '\n\n'}`;
 }else if ($.info.data.firstJoinFlag === false) {
     
         console.log(`\n当前种植水果：${$.info.data.plantInfo[0].cropName}\n当前阶段: ${$.info.data.plantInfo[0].nowStep}\n当前下一阶段还需要浇水：${$.info.data.plantInfo[0].upgradeWateringNum}次`)
@@ -110,8 +111,9 @@ if ($.info.data.firstJoinFlag === true) {
     
      if (watering.success === true ){
           $.log(parseInt(watering.data.property * 0.1))
-     if (parseInt(watering.data.property * 0.1) > 1 ){
-    for (let i = 0 ; i < parseInt(watering.data.property * 0.1); i++){
+       cs = parseInt(watering.data.property * 0.1)
+     if (cs > 0 ){
+    for (let i = 0 ; i < cs; i++){
         await $.wait(3000)
         await jiaoshui($.info.data.earthInfo[0].nowPlantId)
     if (watering.code === 20004 ){
