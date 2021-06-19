@@ -1,7 +1,13 @@
 /*
-入口 京东 我的 全民挖现金
-运行一次查看邀请码 变量你的邀请码 
-export shareCode="1926762FFA5901B0768AF04E5766E1ABAD1DAAB9A3E3F6CBAFDE81EEB7393333"
+*入口 京东 我的 全民挖现金
+*运行一次查看邀请码 变量你的邀请码 
+*★新增：柠檬全民挖现金脚本，暂无账号内互助，后面看能不能添加
+*⊙活动入口：京东APP搜索玩一玩→挖现金
+*◆挖现金脚本环境变量说明： 
+*运行开关：JD_WXJ，false为不运行 
+*互助码：SHARECODE_WXJ 
+*助力作者：HELPAUTHOR_WXJ，false为不助力
+*export shareCode="1926762FFA5901B0768AF04E5766E1ABAD1DAAB9A3E3F6CBAFDE81EEB7393333"
 [task_local]
 0 10 * * *
 */
