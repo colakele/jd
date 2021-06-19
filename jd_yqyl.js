@@ -1,13 +1,10 @@
-
 /*
-
-
- [task_local]
- #柠檬邀请有礼  
- #自定义邀请码环境变量
-export yqm="你的邀请码"
-#柠檬邀请有礼
-0 0 * * * http://nm66.top/jd_yqyl.js, tag=柠檬邀请有礼, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
+*柠檬邀请有礼  
+*自定义邀请码环境变量
+*export yqm="你的邀请码"
+*柠檬邀请有礼
+*[task_local]
+0 10 * * * http://nm66.top/jd_yqyl.js, tag=柠檬邀请有礼, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
 */
 const $ = new Env('柠檬邀请有礼');
 const notify = $.isNode() ? require('./sendNotify') : '';
@@ -16,9 +13,13 @@ const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [], cookie = '', message;
-let yqm = '';
+let yqm = 'WP5jWmBt%2F%2FtXTJ6%2F8DC0jazvLgQilwJjUdtB%2BhWty%2B4%3D';
+let zdtx = false //设置为true自动抢提现100
 if (process.env.yqm) {
   yqm = process.env.yqm;
+}
+if (process.env.zdtx) {
+  zdtx = process.env.zdtx;
 }
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
@@ -54,10 +55,15 @@ const JD_API_HOST = 'https://api.m.jd.com/client.action';
         }
         continue
       }
-      //await zhuli()
-     // await list()
+      
+      
       await helpme()
-     
+     if(zdtx == true){
+     for (let i = 0; i < 20; i++) {
+      await $.wait(1000)
+      await tx()
+     }
+     }
       
 
     }
@@ -79,7 +85,7 @@ function helpme() {
 headers: {
 "Origin": "https://618redpacket.jd.com",
 "Host": "api.m.jd.com",
-"User-Agent": "jdltapp;iPhone;3.3.6;14.3;75aeceef3046d8ce11d354ff89af9517a2e4aa18;network/wifi;hasUPPay/0;pushNoticeIsOpen/0;lang/zh_CN;model/iPhone9,2;addressid/4585826605;hasOCPay/0;appBuild/1060;supportBestPay/0;pv/53.31;apprpd/;ref/https://invite-reward.jd.com/?lng=106.286950&lat=29.969353&sid=547255867e847394aedfb6d68c3e50fw&un_area=4_48201_54794_0#/invitee?inviterId=dS%2Bp85VyjydPuAOOnFP%2Faw%3D%3D;psq/0;ads/;psn/75aeceef3046d8ce11d354ff89af9517a2e4aa18|89;jdv/0|kong|t_1001003207_1762319_6901310|jingfen|30578707801140d09fcd54e5cd83bbf7|1621510932517|1621511027;adk/;app_device/IOS;pap/JA2020_3112531|3.3.6|IOS 14.3;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1",
+"User-Agent": "jdltapp;iPhone;3.3.6;14.3;75aeceef3046d8ce11d354ff89af9517a2e4aa18;network/wifi;hasUPPay/0;pushNoticeIsOpen/0;lang/zh_CN;model/iPhone9,2;addressid/4585826605;hasOCPay/0;appBuild/1060;supportBestPay/0;pv/53.31;apprpd/;ref/https://invite-reward.jd.com/?lng=106.286950&lat=29.969353&sid=547255867e847394aedfb6d68c3e50fw&un_area=4_48201_54794_0#/invitee?inviterId= WP5jWmBt%2F%2FtXTJ6%2F8DC0jazvLgQilwJjUdtB%2BhWty%2B4%3D;psq/0;ads/;psn/75aeceef3046d8ce11d354ff89af9517a2e4aa18|89;jdv/0|kong|t_1001003207_1762319_6901310|jingfen|30578707801140d09fcd54e5cd83bbf7|1621510932517|1621511027;adk/;app_device/IOS;pap/JA2020_3112531|3.3.6|IOS 14.3;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1",
       "Cookie": cookie,
       }
                 }
@@ -94,9 +100,9 @@ headers: {
                     if(data.data.inviteStatus == 1){
                       console.log(data.data.inviteStatus+"邀请成功")
 
-                }else
+                }else  if(data.data.inviteStatus == 0){
                 
-                    console.log(data.data.inviteStatus+"邀请失败")
+                    console.log(data.data.inviteStatus+"邀请失败")}
             } catch (e) {
                 $.logErr(e, resp);
             } finally {
@@ -107,16 +113,16 @@ headers: {
 }
 
 
-
-   function helpme1() {
+//提现100
+   function tx() {
     return new Promise(async (resolve) => {
 
                 let options = {
-    url: `https://api.m.jd.com/?functionId=openRedEnvelopeInteract&body={"linkId":"DA4SkG7NXupA9sksI00L0g","redEnvelopeId":"4afb6432ef1f462f859ba48dc026019053881623062863843","inviter":"r--nrMKvFdPkvzwKkz8Ymw","helpType":"2"}&t=1623064535450&appid=activities_platform&clientVersion=3.3.6`,
+    url: `functionId=InviteFriendApiService&body={"method":"changeWxHongBao","data":{"order":3,"channel":1,"token":"","s":""}}&referer=-1&eid=eidIc2ff812158s1ARLLPvIBQjyII7trmiE3BQESzLTXqSC9s3TX28oQv3zQuaY%2B15FedjhWtgYfTsUSkl9FEDNBP8LQRrRx5GwEA93H4jSPYNJ1OvNs&aid=&client=ios&clientVersion=14.3&networkType=wifi&fp=-1&uuid=75aeceef3046d8ce11d354ff89af9517a2e4aa18&osVersion=14.3&d_brand=iPhone&d_model=iPhone9,2&agent=-1&pageClickKey=-1&screen=414*736&platform=3&lang=zh_CN&appid=market-task-h5&_t=1623066557140`,
 
     
 headers: {
-"Origin": "https://618redpacket.jd.com",
+"Origin": "https://invite-reward.jd.com",
 "Host": "api.m.jd.com",
       "User-Agent": "jdapp;iPhone;9.5.2;14.3;6898c30638c55142969304c8e2167997fa59eb53;network/wifi;ADID/F108E1B6-8E30-477C-BE54-87CF23435488;supportApplePay/0;hasUPPay/0;hasOCPay/0;model/iPhone9,2;addressid/4585826605;supportBestPay/0;appBuild/167650;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1",
       "Cookie": cookie,
@@ -129,7 +135,7 @@ headers: {
                     data = JSON.parse(data);
 
                    
-                    console.log(data.data.helpResult.errMsg)
+                    console.log(data.message)
                     
                     
                     
