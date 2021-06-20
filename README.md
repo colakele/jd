@@ -21,7 +21,7 @@
  
 > 来源清单，同步更新，特别感谢这些大佬的付出
   
-* [@whyour](https://github.com/whyour)
+* [@awhyour](https://github.com/whyour)
   
 * [@NobyDa](https://github.com/NobyDa)
 
@@ -43,3 +43,7 @@
  
 * [@passerby-b](https://github.com/passerby-b) 
 </details>
+
+###其他链接
+[可乐博客：colakele.com](https://colakele.com)
+[TG频道：@colakelecom](https://t.me/colakelecom)
