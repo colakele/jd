@@ -87,7 +87,11 @@ if ($.info.data.firstJoinFlag === true) {
         allMessage += `京东账号${$.index}-${$.nickName || $.UserName}\n当前种植水果：${$.info.data.plantInfo[0].cropName}\n当前阶段: ${$.info.data.plantInfo[0].nowStep}\n当前下一阶段还需要浇水：${$.info.data.plantInfo[0].upgradeWateringNum}次${$.index !== cookiesArr.length ? '\n\n' : '\n\n'}`;
                 if (getwat.code === 0 ){
         $.log(`\n领取定时水滴：${getwat.data.collectWaterNumber}`)
-        
+       if($.info.data.plantInfo[0].status == 0){
+         $.log(`无需除草`)
+       }else ifif($.info.data.plantInfo[0].status == 1){
+         $.log(`需要除草`)
+       }
         }
         
         if ($.do.code === 0){       
