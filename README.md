@@ -44,6 +44,8 @@
 * [@passerby-b](https://github.com/passerby-b) 
 </details>
 
-###其他链接
-[可乐博客：colakele.com](https://colakele.com)
-[TG频道：@colakelecom](https://t.me/colakelecom)
+##其他链接
+
+* [可乐博客：colakele.com](https://colakele.com)
+
+*[TG频道：@colakelecom](https://t.me/colakelecom)
