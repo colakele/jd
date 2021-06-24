@@ -201,7 +201,7 @@ async function helpFriends() {
 }
 function helpFriend(helpInfo) {
   return new Promise((resolve) => {
-    $.get(taskUrl("cash_mob_assist", {...helpInfo,"source":3,"shareDate":"IRs1bey0ZP8"}), (err, resp, data) => {
+    $.get(taskUrl("cash_mob_assist", {...helpInfo,"source":3,"shareDate":"IRs1bey0ZPg"}), (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
