@@ -16,7 +16,7 @@ jobs:
       uses: Yikun/hub-mirror-action@master
       with:
         src: github/colakele
-        dst: gitee/colakele
+        dst: gitee/colakelejs
         dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
         dst_token: ${{ secrets.GITEE_TOKEN }}
         force_update: true
