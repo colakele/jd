@@ -7,6 +7,9 @@
 *助力规则：
 *   开团账号开团，其他账号自动参团。 例：有A,B,C账号，A，B账号开团，则B，C会参加A的团，A会参加B的团
 *   账号内互助之后，开团账号若有剩下参团次数，会尝试加入作者团
+* cron:20 1,6,22 * * * 
+[task_local]
+20 1,6,22 * * * jd_dreamFactorytuan.js, tag=京喜工厂开团, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
 *成团条件：
 *   成团所需人数根据活动所需人数变化，一般为5-7人，
 *   若5人成团，则5个CK能成团一次，9个CK能成团两次，13个CK能成团三次
