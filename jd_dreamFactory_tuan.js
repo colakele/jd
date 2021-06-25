@@ -24,7 +24,7 @@
   const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
   const openTuanCK = $.isNode() ? (process.env.OPEN_DREAMFACTORY_TUAN ? process.env.OPEN_DREAMFACTORY_TUAN : '1'):'1';
   const helpFlag = false;//是否参考作者团
-  let tuanActiveId = `bozIUUFcANuUdWpw3QdvPw==`;
+  let tuanActiveId = `bfcBL1lDI2SWjRerfVkisA==`;
   let cookiesArr = [], cookie = '', message = '';
   $.tuanIds = [];
   $.appId = 10001;
