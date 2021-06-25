@@ -1,32 +1,22 @@
-name: 'sync-gitee-mirror'
-description: '同步 GitHub 仓库到 Gitee 仓库'
-inputs:
-  repository:
-    description: 'colakele/jd'
-    required: true
-  username:
-    description: '${{ secrets.GITEEUSERNAME }}'
-    required: true
-  password:
-    description: '${{ secrets.GITEEPASSWORD }}'
-    required: true
-runs:
-  using: "composite"
-  steps:
-    - run: |
-        git init
-        git remote add origin https://github.com/${GITHUB_REPOSITORY}.git
-        git fetch --all
-        for branch in `git branch -a | grep remotes | grep -v HEAD`; do
-          git branch --track ${branch##*/} $branch
-        done
-      shell: bash
-    - run: |
-        remote_repo="https://${{ inputs.username }}:${{ inputs.password }}@gitee.com/${{ inputs.repository }}.git"
-        git remote add gitee "${remote_repo}"
-        git show-ref # useful for debugging
-        git branch --verbose
-        # publish all
-        git push --all --force gitee
-        git push --tags --force gitee
-      shell: bash
+on:
+  push:
+    # delete this item if you don't want to trigger this workflow when modify this repo
+    branches: master
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    # UTC 17:00 -> CST (China) 1:00, see https://datetime360.com/cn/utc-cst-china-time/
+    - cron: '0 0/10 * * * ? *'
+name: Mirror GitHub Auto Queried Repos to Gitee
+jobs:
+  run:
+    name: Sync-GitHub-to-Gitee
+    runs-on: ubuntu-latest
+    steps:
+    - name: Mirror the Github repos to Gitee.
+      uses: Yikun/hub-mirror-action@master
+      with:
+        src: github/colakele
+        dst: gitee/colakele
+        dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+        dst_token: ${{ secrets.GITEE_TOKEN }}
+        force_update: true
