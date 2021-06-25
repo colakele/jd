@@ -21,7 +21,7 @@
  
 > 来源清单，同步更新，特别感谢这些大佬的付出
   
-* [@awhyour](https://github.com/whyour)
+* [@whyour](https://github.com/whyour)
   
 * [@NobyDa](https://github.com/NobyDa)
 
@@ -31,7 +31,7 @@
 
 * [@chinnkarahoi](https://github.com/cchinnkarahoi)
 
-* [@longzhuzuh](https://github.com/longzhuzhu)
+* [@longzhuzhu](https://github.com/longzhuzhu)
 
 * [@monk-coder](https://github.com/monk-coder)
 
