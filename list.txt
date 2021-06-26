@@ -1,37 +1,20 @@
- jd_618redpacket.js 极速版大赢家翻翻乐活动
- jd_baiTiao.js  京东金融领白条券
- jd_618jc.js 618手机竞猜
  jd_crazyJoy.js 京东疯狂的Joy
  jd_deleteCoupon.js 京东删除优惠券
  jd_jxmc.js 京喜牧场
  jd_kanjia.js 柠檬0元砍价
- jd_limitBox.js 618限时盲盒
  jd_lotteryMachine.js 京东抽奖机
- jd_mcxhd_brandcity.js 新潮品牌狂欢
  jd_pk.js 京享值PK
  jd_ppdz.js  柠檬东东泡泡大战
  jd_priceProtect.js 价格保护
  jd_rankingList.js 京东排行榜
- jd_ry618.js 柠檬华为荣耀618
  jd_SplitRedPacket.js  天降红包
  jd_sqdyj.js 省钱大赢家
- jd_starStore.js 京东星店长
- jd_tyt.js 柠檬推一推
- jd_woHome.js 东东小窝
- jd_wsdlb.js 我是大老板农场
- jd_zjb.js 赚金币
- jd_zoo.js 动物联萌 618活动
- jd_zxjoy.js 柠檬特物ZX JOY&DOGA
- jdCookies.js —
  jd_half_redrain.js 半点红包雨
  jd_hby_lottery.js 主会场红包雨
- jd_super_redrain.js 整点红包雨
  sendNotify.js
- jd_Baojiexiaoxiaole.js 保洁消消乐
- jd_Longzhou.js 龙舟
- jd_Jointeam01.js 纯开卡 GNC组队瓜分京豆
+ jd_zooJointeam01.js 纯开卡 GNC组队瓜分京豆
  jd_Jx88hongbao.js 京喜 领88元红包
- jd_Supershophf.js 合肥旗舰店开业
+ jd_zooSupershophf.js 合肥旗舰店开业
  jd_yqyl.js 邀请有礼
  jd_bean_change.js 京东资产变动通知
  jd_bean_home.js领京豆额外奖励
@@ -40,8 +23,6 @@
  jd_blueCoin.js 东东超市兑换奖品
  jd_bookshop.js 口袋书店  invite
  jd_car.js 京东汽车
- jd_car_exchange.js  京东汽车兑换
- jd_carnivalcity.js 京东手机狂欢城活动
  jd_cash.js 签到领现金
  jd_cfd.js 京喜财富岛
  jd_club_lottery.js 摇京豆
@@ -62,7 +43,6 @@
  jd_jin_tie.js 领金贴
  jd_joy.js  jd宠汪汪
  jd_joy_feedPets.js 宠汪汪喂食
- jd_joy_help.js 宠汪汪强制为别人助力
  jd_joy_reward.js 宠汪汪积分兑换奖品
  jd_joy_run.js宠汪汪邀请助力与赛跑助力脚本
  jd_joy_steal.js宠汪汪偷好友积分与狗粮
@@ -74,7 +54,6 @@
  jd_moneyTree.js  京东摇钱树
  jd_ms.js京东秒秒币
  jd_necklace.js 点点券
- jd_nzmh.js 女装盲盒
  jd_pet.js 东东萌宠
  jd_pigPet.js 金融养猪
  jd_plantBean.js 种豆得豆
@@ -87,17 +66,12 @@
  jd_superMarket.js 东东超市
  jd_syj.js  赚京豆脚本
  jd_unsubscribe.js 取关京东店铺和商品
- jd_xtg.js 家电星推官脚本
- jd_xtg_help.js 家电星推官好友互助脚本
- jd_zooCollect.js #618动物联萌专门收集金币
  jdDreamFactoryShareCodes.js 京喜工厂互助码
  jdFactoryShareCodes.js  东东工厂互助码
  jdFruitShareCodes.js 东东农场互助码
  jdJxncShareCodes.js 京喜农场助力码
  jdPetShareCodes.js 东东萌宠互助码
- jdPlantBeanShareCodes.js  京东种豆得豆互助码
- JS_USER_AGENTS.js
- USER_AGENTS.js
+ jdPlantBeanShareCodes.js 京东种豆得豆互助码
+ JS_USER_AGENTS.js 用户代理
+ USER_AGENTS.js 用户代理
  jd_try.js 京东试用
- getJDCookie.js 
- jd_Elecsport.js东东电竞经理
