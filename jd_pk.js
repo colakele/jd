@@ -3,15 +3,15 @@
 cron 15 0,6,13,19,21 * * * ddo_pk.js
 更新时间：2021-6-22
 
-本次没有ddo内置助力码！
+不修了，修锤子修
 
 活动入口：京东APP-我的-京享值
 已支持IOS双京东账号,Node.js支持N个京东账号
-脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
+脚本兼容: Surge, Loon, JSBox, Node.js
 ============Quantumultx===============
 [task_local]
 #京享值PK
-15 0,6,13,19,21 * * * https://raw.githubusercontent.com/hyzaw/scripts/main/ddo_pk.js, tag=京享值PK
+15 3,6,13,19,21 * * * https://raw.githubusercontent.com/hyzaw/scripts/main/ddo_pk.js, tag=京享值PK
 ================Loon==============
 [Script]
 cron "15 0,6,13,19,21 * * *" script-path=https://raw.githubusercontent.com/hyzaw/scripts/main/ddo_pk.js,tag=京享值PK
