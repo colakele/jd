@@ -2,7 +2,7 @@
 星系牧场
 活动入口：QQ星儿童牛奶京东自营旗舰店->星系牧场
 每次都要手动打开才能跑 不知道啥问题
-
+号1默认给我助力,后续接龙 2给1 3给2
  19.0复制整段话 http:/J7ldD7ToqMhRJI星系牧场养牛牛，可获得DHA专属奶！%VAjYb8me2b!→去猄倲←
  
 https://lzdz-isv.isvjcloud.com/dingzhi/qqxing/pasture/activity?activityId=90121061401&lng=107.146935&lat=33.255252&sid=cad74d1c843bd47422ae20cadf6fe5aw&un_area=8_573_6627_52446
@@ -10,16 +10,16 @@ https://lzdz-isv.isvjcloud.com/dingzhi/qqxing/pasture/activity?activityId=901210
 ============Quantumultx===============
 [task_local]
 #星系牧场
-30 7 * * * https://raw.githubusercontent.com/Wenmoux/scripts/wen/jd/jd_qqxing.js, tag=星系牧场, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
+1 0-23/2 * * * https://raw.githubusercontent.com/Wenmoux/scripts/wen/jd/jd_qqxing.js, tag=星系牧场, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
 */
 const $ = new Env('QQ星系牧场');
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
-
 const randomCount = $.isNode() ? 20 : 5;
 const notify = $.isNode() ? require('./sendNotify') : '';
 let merge = {}
 let codeList = []
+Exchange = $.isNode() ? (process.env.Cowexchange ? process.env.Cowexchange : false) : ($.getdata("Cowexchange") ? $.getdata("Cowexchange") : false);
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [],
     cookie = '';
@@ -34,61 +34,90 @@ if ($.isNode()) {
 
 const JD_API_HOST = `https://api.m.jd.com/client.action`;
 message = ""
-!(async () => {
+$.shareuuid = "8cec00a4917e4af6ae49f8f4f9e7b58d"
+    !(async () => {
         if (!cookiesArr[0]) {
             $.msg($.name, '【提示】请先获取cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/', {
                 "open-url": "https://bean.m.jd.com/"
             });
             return;
         }
-
-        for (let i = 0; i <cookiesArr.length  ; i++) {
+        for (let i = 0; i <cookiesArr.length; i++) {
             cookie = cookiesArr[i];
             if (cookie) {
                 $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
                 $.index = i + 1;
                 $.cando = true
                 $.cow = ""
+                $.openCard = true
                 $.isLogin = true;
+                $.needhelp = true
+                $.foodNum = 0
                 $.nickName = '';
                 $.drawresult = ""
+                $.exchange =0
                 console.log(`\n******开始【京东账号${$.index}】${$.nickName || $.UserName}*********\n`);
                 if (!$.isLogin) {
                     $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.nickName || $.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/bean/signIndex.action`, {
                         "open-url": "https://bean.m.jd.com/bean/signIndex.action"
                     });
-
                     if ($.isNode()) {
                         await notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
                     }
                     continue
                 }
                 await genToken()
-                await getToken2()
                 await getActCk()
+                await getToken2()
+                await getshopid()
                 await getMyPin()
+                await adlog()
                 await getUserInfo()
-                await getinfo()
                 if ($.cando) {
+                    await getUid($.shareuuid)
+                    await getinfo()
                     taskList = [...$.taskList, ...$.taskList2]
                     for (j = 0; j < taskList.length; j++) {
                         task = taskList[j]
                         console.log(task.taskname)
-                        await dotask(task.taskid, task.params)
+                        if (task.taskid == "interact") {
+                            for (l = 0; l < 20 - task.curNum; l++) {
+                                await dotask(task.taskid, task.params)
+                                await $.wait(500)
+                            }
+                        } else if (task.taskid == "scansku") {
+                            await getproduct()
+                            await writePersonInfo($.vid)
+                            await dotask(task.taskid, $.pparam)
+                        } else {
+                            await dotask(task.taskid, task.params)
+                            await $.wait(500)
+                        }
                     }
                     await getinfo()
                     for (k = 0; k < $.drawchance; k++) {
                         await draw()
                     }
-                    message += `【京东账号${$.index}】${$.nickName || $.UserName}\n${$.cow} +${$.drawresult}\n`
+                    let exchanges =Math.floor($.foodNum/1000)
+                    console.log(`可兑换 ${exchanges} 次 20京🐶`)
+                    for(q = 0;q<exchanges && Exchange;q++){
+                    await exchange(13)   
+                    }
+                    await getinfo()
+                    if(!Exchange){console.log("你 默认 不兑换东西,请自行进去活动兑换")}
+                    message += `【京东账号${$.index}】${$.nickName || $.UserName}\n${$.cow} 兑换京🐶 ${$.exchange}  ${$.drawresult}\n`
                 } else {
-                    console.log("跑不起来了~请自己进去一次牧场")
+                  $.msg($.name, "", "跑不起来了~请自己进去一次牧场")
                 }
             }
         }
-        if (message.length != 0) {
-            await notify.sendNotify("星系牧场", `${message}\n牧场入口：QQ星儿童牛奶京东自营旗舰店->星系牧场\n\n吹水群：https://t.me/wenmou_car`);
+        if (message.length != 0&&new Date().getHours() == 11) {
+        if ($.isNode()) {
+           await notify.sendNotify("星系牧场", `${message}\n牧场入口：QQ星儿童牛奶京东自营旗舰店->星系牧场\n\n吹水群：https://t.me/wenmouxx`);
+   }  else {
+            $.msg($.name, "", '星系牧场' + message)
         }
+           }
     })()
     .catch((e) => $.logErr(e))
     .finally(() => $.done())
@@ -99,8 +128,8 @@ message = ""
 //genToken
 function genToken() {
     let config = {
-        url: 'https://api.m.jd.com/client.action?functionId=genToken&clientVersion=10.0.4&build=88641&client=android&d_brand=Xiaomi&d_model=RedmiK30&osVersion=11&screen=2175*1080&partner=xiaomi001&oaid=b30cf82cacfa8972&openudid=290955c2782e1c44&eid=eidAef5f8122a0sf2tNlFbi9TV+3rtJ+jl5UptrTZo/Aq5MKUEaXcdTZC6RfEBt5Jt3Gtml2hS+ZvrWoDvkVv4HybKpJJVMdRUkzX7rGPOis1TRFRUdU&sdkVersion=30&lang=zh_CN&uuid=290955c2782e1c44&aid=290955c2782e1c44&area=8_573_6627_52446&networkType=wifi&wifiBssid=unknown&uts=0f31TVRjBStpL4ZXG%2Bei9UMZFx11kiAc4uTbRsxZfZtpjK0qBikE0Huau%2BdHMWw7Nxk%2FDA3TwsEF9ZWEw2bHW1pJATTaEazb5s4ufJjOtQ0UlsSdWNOuRR1whnfY5iOVPH0WQifaQw%2BNNHEzMW3vqt8932eMJc8EWhTwcEyYBkI56D6FQeTEhnaG0UEv0qLuGvPMDfUoUM6rra09Khoa3A%3D%3D&uemps=0-0&st=1624142743692&sign=0f1b321eb6b7be6fd1f918c36718b6ee&sv=100',
-        body: 'body=%7B%22action%22%3A%22to%22%2C%22to%22%3A%22https%253A%252F%252Flzdz-isv.isvjcloud.com%252Fdingzhi%252Fqqxing%252Fpasture%252Factivity%253FactivityId%253D90121061401%22%7D&',
+        url: 'https://api.m.jd.com/client.action?functionId=genToken&clientVersion=10.0.5&build=88679&client=android&d_brand=Xiaomi&d_model=RedmiK30&osVersion=11&screen=2175*1080&partner=xiaomi001&oaid=b30cf82cacfa8972&openudid=290955c2782e1c44&eid=eidAef5f8122a0sf2tNlFbi9TV+3rtJ+jl5UptrTZo/Aq5MKUEaXcdTZC6RfEBt5Jt3Gtml2hS+ZvrWoDvkVv4HybKpJJVMdRUkzX7rGPOis1TRFRUdU&sdkVersion=30&lang=zh_CN&uuid=290955c2782e1c44&aid=290955c2782e1c44&area=8_573_6627_52446&networkType=wifi&wifiBssid=unknown&uts=0f31TVRjBSv3jTHxm2nVw0TY2tLLC%2BbMUWTL7l1wiidLQvx5ZA%2FtBqu04oDVd%2BAlgB%2FjTkTFhNHNpAgtViMD%2FiXVmOPPYYRQmRjsyK4Z61d%2BWQHH%2B3z7HGBUCyPLkYM%2Bb6QgeLXtFB%2FZVoGMidghf8RwpjmGNEtCcEY3WFFPvfKnNZKXPzwSJfkIsVes9jUE6bkyM4YGvjNk24i1yafg5g%3D%3D&uemps=0-0&st=1624319523639&sign=344ece5825b6f9623131c3bcfa42e9bd&sv=122',
+        body: 'body=%7B%22action%22%3A%22to%22%2C%22to%22%3A%22https%253A%252F%252Flzdz-isv.isvjcloud.com%252Fdingzhi%252Fqqxing%252Fpasture%252Factivity%252F9559009%253FactivityId%253D90121061401%2526shareUuid%253D8cec00a4917e4af6ae49f8f4f9e7b58d%2526adsource%253Dnull%2526shareuserid4minipg%253DqvjNiWQ2yv8K3NDiWv3DDE7oeVP9kq2pYSH90mYt4m3fwcJlClpxrfmVYaGKuquQkdK3rLBQpEQH9V4tdrrh0w%25253D%25253D%2526shopid%253Dundefined%22%7D&',
         headers: {
             'Host': 'api.m.jd.com',
             'accept': '*/*',
@@ -119,6 +148,7 @@ function genToken() {
                 } else {
                     data = JSON.parse(data);
                     $.isvToken = data['tokenKey']
+                    //   console.log($.isvToken)
                 }
             } catch (e) {
                 $.logErr(e, resp)
@@ -152,6 +182,7 @@ function getToken2() {
                 } else {
                     data = JSON.parse(data);
                     $.token2 = data['token']
+                    //     console.log($.token2)
                 }
             } catch (e) {
                 $.logErr(e, resp)
@@ -168,7 +199,7 @@ function getToken2() {
 //抄的书店的 不过不加好像也能进去
 function getActCk() {
     return new Promise(resolve => {
-        $.get(taskUrl("/dingzhi/qqxing/pasture/activity", `activityId=90121061401`), (err, resp, data) => {
+        $.get(taskUrl("/dingzhi/qqxing/pasture/activity", `activityId=90121061401&lng=107.146945&lat=33.255267&sid=cad74d1c843bd47422ae20cadf6fe5aw&un_area=27_2442_2444_31912`), (err, resp, data) => {
             try {
                 if (err) {
                     console.log(`${$.name} API请求失败，请检查网路重试`)
@@ -192,14 +223,37 @@ function getActCk() {
     })
 }
 
-
+//获取我的pin
+function getshopid() {
+    let config = taskPostUrl("/dz/common/getSimpleActInfoVo", "activityId=90121061401")
+    return new Promise(resolve => {
+        $.post(config, async (err, resp, data) => {
+            try {
+                if (err) {
+                    console.log(`${JSON.stringify(err)}`)
+                    console.log(`${$.name} API请求失败，请检查网路重试`)
+                } else {
+                    data = JSON.parse(data);
+                    if (data.result) {
+                        $.shopid = data.data.shopId
+                        //    console.log($.shopid)
+                    }
+                }
+            } catch (e) {
+                $.logErr(e, resp)
+            } finally {
+                resolve(data);
+            }
+        })
+    })
+}
 
 //获取我的pin
 function getMyPin() {
-    let config = taskUrl("/customer/getMyPing", `userId=1000361242&token=${$.token2}&fromType=APP`)
-    // console.log(config)
+    let config = taskPostUrl("/customer/getMyPing", `userId=${$.shopid}&token=${encodeURIComponent($.token2)}&fromType=APP`)
+    //   console.log(config)
     return new Promise(resolve => {
-        $.get(config, async (err, resp, data) => {
+        $.post(config, async (err, resp, data) => {
             try {
                 if (err) {
                     console.log(`${JSON.stringify(err)}`)
@@ -208,12 +262,14 @@ function getMyPin() {
                     data = JSON.parse(data);
                     if (data.data && data.data.secretPin) {
                         $.pin = data.data.secretPin
+                        //    console.log($.pin)
                         $.nickname = data.data.nickname
+                        // console.log(data)
                         console.log(`欢迎回来~  ${$.nickname}`);
                     }
                 }
             } catch (e) {
-                   $.logErr(e, resp)
+                $.logErr(e, resp)
             } finally {
                 resolve(data);
             }
@@ -221,21 +277,25 @@ function getMyPin() {
     })
 }
 
-
-// 获得用户信息  
-function getUserInfo() {
+function adlog() {
+    let config = taskPostUrl("/common/accessLogWithAD", `venderId=1000361242&code=99&pin=${encodeURIComponent($.pin)}&activityId=90121061401&pageUrl=https%3A%2F%2Flzdz-isv.isvjcloud.com%2Fdingzhi%2Fqqxing%2Fpasture%2Factivity%3FactivityId%3D90121061401%26lng%3D107.146945%26lat%3D33.255267%26sid%3Dcad74d1c843bd47422ae20cadf6fe5aw%26un_area%3D27_2442_2444_31912&subType=app&adSource=`)
+    //   console.log(config)
     return new Promise(resolve => {
-        let body = `pin=${encodeURIComponent($.token)}`
-        $.post(taskPostUrl('wxActionCommon/getUserInfo', body), async (err, resp, data) => {
+        $.post(config, async (err, resp, data) => {
             try {
                 if (err) {
+                    console.log(`${JSON.stringify(err)}`)
                     console.log(`${$.name} API请求失败，请检查网路重试`)
                 } else {
-                    data = JSON.parse(data);
-                    if (data.data) {
-                        $.userId = data.data.id
-                        $.pinImg = data.data.yunMidImageUrl
-                        $.nick = data.data.nickname
+                    //  data = JSON.parse(data);
+                    if ($.isNode())
+                        for (let ck of resp['headers']['set-cookie']) {
+                            cookie = `${cookie}; ${ck.split(";")[0]};`
+                        }
+                    else {
+                        for (let ck of resp['headers']['Set-Cookie'].split(',')) {
+                            cookie = `${cookie}; ${ck.split(";")[0]};`
+                        }
                     }
                 }
             } catch (e) {
@@ -248,11 +308,67 @@ function getUserInfo() {
 }
 
 
+
+// 获得用户信息  
+function getUserInfo() {
+    return new Promise(resolve => {
+        let body = `pin=${encodeURIComponent($.pin)}`
+        let config = taskPostUrl('/wxActionCommon/getUserInfo', body)
+        //   console.log(config)
+        $.post(config, async (err, resp, data) => {
+            try {
+                if (err) {
+                    console.log(`${$.name} API请求失败，请检查网路重试`)
+                } else {
+                    data = JSON.parse(data);
+                    if (data.data) {
+                        $.userId = data.data.id
+                        $.pinImg = data.data.yunMidImageUrl
+                        $.nick = data.data.nickname
+                    } else {
+                        $.cando = false
+                    }
+                }
+            } catch (e) {
+                $.logErr(e, resp)
+            } finally {
+                resolve(data);
+            }
+        })
+    })
+}
+
+function getUid() {
+    return new Promise(resolve => {
+        let body = `activityId=90121061401&pin=${encodeURIComponent($.pin)}&pinImg=${$.pinImg }&nick=${encodeURIComponent($.nick)}&cjyxPin=&cjhyPin=&shareUuid=${$.shareuuid}`
+        $.post(taskPostUrl('/dingzhi/qqxing/pasture/activityContent', body), async (err, resp, data) => {
+            try {
+                if (err) {
+                    console.log(`${$.name} API请求失败，请检查网路重试`)
+                } else {
+                    data = JSON.parse(data);
+                        if (data.result) {                           
+                           if(data.data.openCardStatus !=3){
+                           console.log("当前未开卡,无法助力和兑换奖励哦")
+                           }                           
+                            $.shareuuid = data.data.uid                            
+                            console.log(`\n【京东账号${$.index}（${$.UserName}）的${$.name}好友互助码】${$.shareuuid}\n`);
+                        }
+                      }
+            } catch (e) {
+                $.logErr(e, resp)
+            } finally {
+                resolve(data);
+            }
+        })
+    })
+}
+
 //获取任务列表
 function getinfo() {
-    let config = taskUrl("/dingzhi/qqxing/pasture/myInfo", `activityId=90121061401&pin=${$.pin}&pinImg=${$.pinImg}&nick=${$.nick}&cjyxPin=&cjhyPin=&shareUuid=`)
+    let config = taskPostUrl("/dingzhi/qqxing/pasture/myInfo", `activityId=90121061401&pin=${encodeURIComponent($.pin)}&pinImg=${$.pinImg}&nick=${$.nick}&cjyxPin=&cjhyPin=&shareUuid=${$.shareuuid}`)
     return new Promise(resolve => {
-        $.get(config, async (err, resp, data) => {
+        $.post(config, async (err, resp, data) => {
             try {
                 if (err) {
                     console.log(`${JSON.stringify(err)}`)
@@ -260,18 +376,27 @@ function getinfo() {
                 } else {
                     data = JSON.parse(data);
                     if (data.result) {
-                        $.taskList = data.data.task.filter(x => x.maxNeed == 1 && x.curNum == 0)
+                        $.taskList = data.data.task.filter(x => (x.maxNeed == 1 && x.curNum == 0) || x.taskid == "interact")
                         $.taskList2 = data.data.task.filter(x => x.maxNeed != 1 && x.type == 0)
                         $.draw = data.data.bags.filter(x => x.bagId == 'drawchance')[0]
                         $.food = data.data.bags.filter(x => x.bagId == 'food')[0]
                         $.sign = data.data.bags.filter(x => x.bagId == 'signDay')[0]
                         $.score = data.data.score
+                        //    console.log(data.data.task)
+                        let helpinfo = data.data.task.filter(x => x.taskid == 'share2help')[0]
+                        if (helpinfo) {
+                            console.log(`今天已有${helpinfo.curNum}人为你助力啦`)
+                            if (helpinfo.curNum == 20) {
+                                $.needhelp = false
+                            }
+                        }
                         $.cow = `当前🐮🐮成长值：${$.score}  饲料：${$.food.totalNum-$.food.useNum}  抽奖次数：${$.draw.totalNum-$.draw.useNum}  签到天数：${$.sign.totalNum}`
+                        $.foodNum = $.food.totalNum-$.food.useNum
                         console.log($.cow)
                         $.drawchance = $.draw.totalNum - $.draw.useNum
                     } else {
                         $.cando = false
-                   //     console.log(data)
+                        //     console.log(data)
                         console.log(data.errorMessage)
                     }
                 }
@@ -286,14 +411,86 @@ function getinfo() {
 }
 
 
+// 获取浏览商品
+function getproduct() {
+    return new Promise(resolve => {
+        let body = `type=4&activityId=90121061401&pin=${encodeURIComponent($.pin)}&actorUuid=${$.uuid}&userUuid=${$.uuid}`
+        $.post(taskPostUrl('/dingzhi/qqxing/pasture/getproduct', body), async (err, resp, data) => {
+            try {
+                if (err) {
+                    console.log(`${$.name} API请求失败，请检查网路重试`)
+                } else {
+                    data = JSON.parse(data);
+                    // console.log(data)
+                    if (data.data && data.data[0]) {
+                        $.pparam = data.data[0].id
 
+                        $.vid = data.data[0].venderId
 
+                    }
+                }
+            } catch (e) {
+                $.logErr(e, resp)
+            } finally {
+                resolve(data);
+            }
+        })
+    })
+}
+
+// 获取浏览商品
+function writePersonInfo(vid) {
+    return new Promise(resolve => {
+        let body = `jdActivityId=1404370&pin=${encodeURIComponent($.pin)}&actionType=5&venderId=${vid}&activityId=90121061401`
+
+        $.post(taskPostUrl('/interaction/write/writePersonInfo', body), async (err, resp, data) => {
+            try {
+                if (err) {
+                    console.log(`${$.name} API请求失败，请检查网路重试`)
+                } else {
+                    console.log("浏览：" + $.vid)
+                    console.log(data)
+                }
+            } catch (e) {
+                $.logErr(e, resp)
+            } finally {
+                resolve(data);
+            }
+        })
+    })
+}
+//兑换商品
+function exchange(id) {
+    return new Promise(resolve => {
+        let body = `pid=${id}&activityId=90121061401&pin=${encodeURIComponent($.pin)}&actorUuid=&userUuid=`
+        $.post(taskPostUrl('/dingzhi/qqxing/pasture/exchange?_', body), async (err, resp, data) => {
+            try {
+                if (err) {
+                    console.log(`${$.name} API请求失败，请检查网路重试`)
+                } else {
+                    data = JSON.parse(data);
+                 //   console.log()
+if(data.result){
+console.log(`兑换 ${data.data.rewardName}成功`)
+$.exchange += 20
+}else{
+console.log(JSON.stringify(data))
+}
+                }
+            } catch (e) {
+                $.logErr(e, resp)
+            } finally {
+                resolve(data);
+            }
+        })
+    })
+}
 
 function dotask(taskId, params) {
-    let config = taskUrl("/dingzhi/qqxing/pasture/doTask", `taskId=${taskId}&param=${params}&activityId=90121061401&pin=${$.pin}&actorUuid=&userUuid=`)
-    //  console.log(config)
+    let config = taskPostUrl("/dingzhi/qqxing/pasture/doTask", `taskId=${taskId}&${params?("param="+params+"&"):""}activityId=90121061401&pin=${encodeURIComponent($.pin)}&actorUuid=${$.uuid}&userUuid=${$.shareuuid}`)
+    //     console.log(config)
     return new Promise(resolve => {
-        $.get(config, async (err, resp, data) => {
+        $.post(config, async (err, resp, data) => {
             try {
                 if (err) {
                     console.log(`${JSON.stringify(err)}`)
@@ -319,10 +516,10 @@ function dotask(taskId, params) {
 }
 
 function draw() {
-    let config = taskUrl("/dingzhi/qqxing/pasture/luckydraw", `activityId=90121061401&pin=${$.pin}&actorUuid=&userUuid=`)
+    let config = taskPostUrl("/dingzhi/qqxing/pasture/luckydraw", `activityId=90121061401&pin=${encodeURIComponent($.pin)}&actorUuid=&userUuid=`)
     //  console.log(config)
     return new Promise(resolve => {
-        $.get(config, async (err, resp, data) => {
+        $.post(config, async (err, resp, data) => {
             try {
                 if (err) {
                     console.log(`${JSON.stringify(err)}`)
@@ -348,12 +545,6 @@ function draw() {
         })
     })
 }
-
-
-
-
-
-
 function taskUrl(url, body) {
     const time = Date.now();
     //  console.log(cookie)
@@ -375,7 +566,7 @@ function taskUrl(url, body) {
 
 function taskPostUrl(url, body) {
     return {
-        url: `https://lzdz-isv.isvjcloud.com/${url}`,
+        url: `https://lzdz-isv.isvjcloud.com${url}`,
         body: body,
         headers: {
             'Host': 'lzdz-isv.isvjcloud.com',
@@ -384,10 +575,14 @@ function taskPostUrl(url, body) {
             'Referer': 'https://lzdz-isv.isvjcloud.com/dingzhi/qqxing/pasture/activity/6318274?activityId=90121061401&shareUuid=15739046ca684e8c8fd303c8a14e889a&adsource=null&shareuserid4minipg=Ej42XlmwUZpSlF8TzjHBW2Sy3WQlSnqzfk0%2FaZMj9YjTmBx5mleHyWG1kOiKkz%2Fk&shopid=undefined&lng=107.146945&lat=33.255267&sid=cad74d1c843bd47422ae20cadf6fe5aw&un_area=8_573_6627_52446',
             'user-agent': 'jdapp;android;10.0.4;11;2393039353533623-7383235613364343;network/wifi;model/Redmi K30;addressid/138549750;aid/290955c2782e1c44;oaid/b30cf82cacfa8972;osVer/30;appBuild/88641;partner/xiaomi001;eufv/1;jdSupportDarkMode/0;Mozilla/5.0 (Linux; Android 11; Redmi K30 Build/RKQ1.200826.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045537 Mobile Safari/537.36',
             'content-type': 'application/x-www-form-urlencoded',
-            'Cookie': `${cookie} IsvToken=${$.IsvToken};AUTH_C_USER=${$.pin}"`,
+            'Cookie': `${cookie} IsvToken=${$.IsvToken};AUTH_C_USER=${$.pin};`,
         }
     }
 }
+
+
+
+
 function jsonParse(str) {
     if (typeof str == "string") {
         try {
