@@ -8,7 +8,7 @@ export inviterNick3=""
 后续添加自动兑换功能 如入会失败 自行去入会
 入口 京东 频道 美食馆
 [task_local]
-0 11 * * * 
+cron: 0 11 * * * 
 */
 const $ = new Env('柠檬京东零食街');
 const notify = $.isNode() ? require('./sendNotify') : '';
