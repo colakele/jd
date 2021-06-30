@@ -8,7 +8,7 @@ export inviterNick3=""
 后续添加自动兑换功能 如入会失败 自行去入会
 入口 京东 频道 美食馆
 [task_local]
-cron: 0 11 * * * 
+0 11 * * * 
 */
 const $ = new Env('柠檬京东零食街');
 const notify = $.isNode() ? require('./sendNotify') : '';
@@ -17,7 +17,8 @@ const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [], cookie = '', message;
-let inviterNick = '5B8925F516A7A4B0AFAFC64F022CBD0F7969F09F8540E3B1CB07FB8CB5E1910549336DE54E26AA8F2834B248E6398CB7A755DF4FDAE585EC3E1ABE26F3DD3CFFC956D12974FF00A045D8E31A84FE84C18A8357DE96A1F617B8AC4D64BC24B689';
+let inviterNick = '5B8925F516A7A4B0AFAFC64F022CBD0F7969F09F8540E3B1CB07FB8CB5E1910549336DE54E26AA8F2834B248E6398CB7A755DF4FDAE585EC3E1ABE26F3DD3CFFC956D12974FF00A045D8E31A84FE84C18A8357DE96A1F617B8AC4D64BC24B689
+';
 let inviterNick2 = '';
 let inviterNick3 = '';
 let inviterNick4 = '';
@@ -109,7 +110,7 @@ console.log(`您提供了${newShareCodes.length}个账号的${$.name}助力码\n
     $.done();
   })
 async function helpFriends() {
-  
+  $.log("开始邀请好友")
   for (let code of newShareCodes) {
     
     console.log(`去帮助好友${code['inviterNick']}`)
@@ -122,7 +123,7 @@ async function helpFriends() {
 }
 async function star() {
 await gettoken()
-
+$.log("开始入会任务")
 await dojoinMember(1000101562)
 await $.wait(5000)
 await dojoinMember(1000077335)
@@ -130,18 +131,30 @@ await $.wait(5000)
 await dojoinMember(1000008814)
 await $.wait(5000)
 await dojoinMember(1000014803)
+$.log("开始领取首页水滴")
 await dotree(1)
 await $.wait(5000)
 await dotree(2)
 await $.wait(5000)
 await dotree(3)
 await $.wait(5000)
+$.log("开始浏览会场")
 await doliulan(1)
 await $.wait(5000)
 await doliulan(2)
 await $.wait(5000)
 await doliulan(3)
-//await gettask()    
+//await gettask()  
+
+$.log("开始浏览会场")
+await doshop(1)
+await $.wait(5000)
+await doshop(2)
+await $.wait(5000)
+await doshop(3)
+await $.wait(5000)
+await doshop(4)
+$.log("开始浏览推荐食品商品")
 await doGoods(1)
 await $.wait(5000)
 await doGoods(2)
@@ -149,6 +162,7 @@ await $.wait(5000)
 await doGoods(3)
 await $.wait(5000)
 await doGoods(4)
+$.log("开始加购商品")
 await doadd(1)
 await $.wait(5000)
 await doadd(2)
@@ -156,6 +170,7 @@ await $.wait(5000)
 await doadd(3)
 await $.wait(5000)
 await doadd(4)
+$.log("开始游戏刷分")
 await playgame()
 
 }
@@ -342,12 +357,12 @@ headers: {
         });
     });
 }
-function doGoods(goodsNumId) {
+function doGoods(Goods) {
     return new Promise(async (resolve) => {
 let options = {
     url: `https://jinggengjcq-isv.isvjcloud.com/dm/front/foodRunning/complete/mission?open_id=&mix_nick=&bizExtString=&user_id=10299171`,
 
-    body: `{"jsonRpc":"2.0","params":{"commonParameter":{"appkey":"51B59BB805903DA4CE513D29EC448375","m":"POST","sign":"c80a9253cc1558cbf7f54639198ee751","timestamp":1625029740517,"userId":10299171},"admJson":{"goodsNumId":${goodsNumId},"missionType":"viewGoods","method":"/foodRunning/complete/mission","actId":"jd_food_running","buyerNick":"${nick}","pushWay":1,"userId":10299171}}}`,
+    body: `{"jsonRpc":"2.0","params":{"commonParameter":{"appkey":"51B59BB805903DA4CE513D29EC448375","m":"POST","sign":"c80a9253cc1558cbf7f54639198ee751","timestamp":1625029740517,"userId":10299171},"admJson":{"goodsNumId":${Goods},"missionType":"viewGoods","method":"/foodRunning/complete/mission","actId":"jd_food_running","buyerNick":"${nick}","pushWay":1,"userId":10299171}}}`,
 headers: {
 "Origin": "https://jinggengjcq-isv.isvjcloud.com",
 "Content-Type": "application/json; charset=UTF-8",
